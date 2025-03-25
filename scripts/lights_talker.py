@@ -2,30 +2,23 @@
 # license removed for brevity
 import rospy
 from std_msgs.msg import String
-import baxter_interface.analog_io as AIO
+import baxter_interface.digital_io as DIO
 
 def talker():
-	#pub = rospy.Publisher('demo_chatter', String, queue_size=10)
 	rospy.init_node('lights_talker')
-	rate = rospy.Rate(10) # 10hz
-	#10 times a second, publish a String msg.
-	torso_lighting = AIO.AnalogIO('torso_lighting')
-
-	time_last = rospy.get_time()
-	time_past = 0
-	torso_lights = False
-	while not rospy.is_shutdown():
-		
-		time_past = time_past + rospy.get_time()
-		seconds_past = time_past/10000000000
-		if not torso_lights and seconds_past > 3:
-			torso_lights = True
-			torso_lighting.set_output(100);
-		if seconds_past > 10:
-			torso_lighting.set_output(0);
-			return
-		print torso_lighting.state()
-		rate.sleep()
+	leftLightInner = DIO.DigitalIO('left_itb_light_inner')
+	
+	leftLightInner.state(not leftLightInner.state())
+	rospy.sleep(1)
+	leftLightInner.state(not leftLightInner.state())
+	rospy.sleep(1)
+	leftLightInner.state(not leftLightInner.state())
+	rospy.sleep(1)
+	leftLightInner.state(not leftLightInner.state())
+	rospy.sleep(1)
+	leftLightInner.state(not leftLightInner.state())
+	rospy.sleep(1)
+	leftLightInner.state(not leftLightInner.state())
 
 if __name__ == '__main__':
 
