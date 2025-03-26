@@ -29,18 +29,11 @@ def talker():
 		switchState(torsoLeftLightOuter)
 		switchState(torsoRightLightInner)
 		switchState(torsoRightLightOuter)
+	for i in range(0, 10):
+		switchLights()
+		rospy.sleep(1)
 
-	leftLightInner.state = not leftLightInner.state
-	rospy.sleep(1)
-	leftLightInner.state = not leftLightInner.state
-	rospy.sleep(1)
-	leftLightInner.state = not leftLightInner.state
-	rospy.sleep(1)
-	leftLightInner.state = not leftLightInner.state
-	rospy.sleep(1)
-	leftLightInner.state = not leftLightInner.state
-	rospy.sleep(1)
-	leftLightInner.state = not leftLightInner.state
+	
 
 if __name__ == '__main__':
 
