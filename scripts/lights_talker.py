@@ -8,17 +8,17 @@ def talker():
 	rospy.init_node('lights_talker')
 	leftLightInner = DIO.DigitalIO('left_inner_light')
 	
-	leftLightInner.state(not leftLightInner.state())
+	leftLightInner.state(not leftLightInner.state)
 	rospy.sleep(1)
-	leftLightInner.state(not leftLightInner.state())
+	leftLightInner.state(not leftLightInner.state)
 	rospy.sleep(1)
-	leftLightInner.state(not leftLightInner.state())
+	leftLightInner.state(not leftLightInner.state)
 	rospy.sleep(1)
-	leftLightInner.state(not leftLightInner.state())
+	leftLightInner.state(not leftLightInner.state)
 	rospy.sleep(1)
-	leftLightInner.state(not leftLightInner.state())
+	leftLightInner.state(not leftLightInner.state)
 	rospy.sleep(1)
-	leftLightInner.state(not leftLightInner.state())
+	leftLightInner.state(not leftLightInner.state)
 
 if __name__ == '__main__':
 
