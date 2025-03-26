@@ -20,7 +20,7 @@ def talker():
 	torsoRightLightOuter = DIO.DigitalIO('torso_right_outer_light')
 	def switchLights():
 		def switchState(digitalComponent):
-			digitalComponent = not digitalComponent
+			digitalComponent.state = not digitalComponent.state
 		switchState(leftLightInner)
 		switchState(leftLightOuter)
 		switchState(rightLightInner)
