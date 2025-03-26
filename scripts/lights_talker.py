@@ -18,9 +18,12 @@ def talker():
 	torsoLeftLightOuter = DIO.DigitalIO('torso_left_outer_light')
 	torsoRightLightInner = DIO.DigitalIO('torso_right_inner_light')
 	torsoRightLightOuter = DIO.DigitalIO('torso_right_outer_light')
-	def switchLights():
-		def switchState(digitalComponent):
+	headRedLight = DIO.DigitalIO('head_red_light')
+	headYellowLight = DIO.DigitalIO('head_yellow_light')
+	headGreenLight = DIO.DigitalIO('head_green_light')
+	def switchState(digitalComponent):
 			digitalComponent.state = not digitalComponent.state
+	def switchLights():
 		switchState(leftLightInner)
 		switchState(leftLightOuter)
 		switchState(rightLightInner)
@@ -33,6 +36,17 @@ def talker():
 		switchLights()
 		print("Switched the lights!", i)
 		rospy.sleep(1)
+	switchState(headRedLight)
+	rospy.sleep(1)
+	switchState(headGreenLight)
+	rospy.sleep(1)
+	switchState(headRedLight)
+	rospy.sleep(1)
+	switchState(headYellowLight)
+	rospy.sleep(1)
+	switchState(headGreenLight)
+	rospy.sleep(1)
+	switchState(headYellowLight)
 
 	
 
