@@ -6,7 +6,7 @@ import baxter_interface.digital_io as DIO
 
 def talker():
 	rospy.init_node('lights_talker')
-	leftLightInner = DIO.DigitalIO('left_itb_light_inner')
+	leftLightInner = DIO.DigitalIO('left_inner_light')
 	
 	leftLightInner.state(not leftLightInner.state())
 	rospy.sleep(1)
