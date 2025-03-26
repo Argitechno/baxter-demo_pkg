@@ -36,7 +36,9 @@ def talker():
 		switchLights()
 		print("Switched the lights!", i)
 		rospy.sleep(1)
+	print(headRedLight.state, " : HRL")
 	headRedLight.state = 1
+	print(headRedLight.state, " : HRL")
 
 	
 
