@@ -36,17 +36,7 @@ def talker():
 		switchLights()
 		print("Switched the lights!", i)
 		rospy.sleep(1)
-	switchState(headRedLight)
-	rospy.sleep(1)
-	switchState(headGreenLight)
-	rospy.sleep(1)
-	switchState(headRedLight)
-	rospy.sleep(1)
-	switchState(headYellowLight)
-	rospy.sleep(1)
-	switchState(headGreenLight)
-	rospy.sleep(1)
-	switchState(headYellowLight)
+	switchState(headRedLight) = 1
 
 	
 
