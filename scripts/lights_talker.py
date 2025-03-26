@@ -18,19 +18,7 @@ def talker():
 	#torsoLeftLightOuter = DIO.DigitalIO('torso_left_outer_light')
 	#torsoRightLightInner = DIO.DigitalIO('torso_right_inner_light')
 	#torsoRightLightOuter = DIO.DigitalIO('torso_right_outer_light')
-	def switchLights():
-		def switchState(digitalComponent):
-			digitalComponent = not digitalComponent
-		switchState(leftLightInner)
-		#switchState(leftLightOuter)
-		#switchState(rightLightInner)
-		#switchState(righLightOuter)
-		#switchState(torsoLeftLightInner)
-		#switchState(torsoLeftLightOuter)
-		#switchState(torsoRightLightInner)
-		#switchState(torsoRightLightOuter)
 	for i in range(0, 10):
-		switchLights()
 		leftLightInner = not leftLightInner
 		print("Switched the lights!", i)
 		rospy.sleep(1)
