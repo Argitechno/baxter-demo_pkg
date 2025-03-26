@@ -4,10 +4,32 @@ import rospy
 from std_msgs.msg import String
 import baxter_interface.digital_io as DIO
 
+
+
+
+
 def talker():
 	rospy.init_node('lights_talker')
 	leftLightInner = DIO.DigitalIO('left_inner_light')
-	
+	leftLightOuter = DIO.DigitalIO('left_outer_light')
+	rightLightInner = DIO.DigitalIO('right_inner_light')
+	righLightOuter = DIO.DigitalIO('right_outer_light')
+	torsoLeftLightInner = DIO.DigitalIO('torso_left_inner_light')
+	torsoLeftLightOuter = DIO.DigitalIO('torso_left_outer_light')
+	torsoRightLightInner = DIO.DigitalIO('torso_right_inner_light')
+	torsoRightLightOuter = DIO.DigitalIO('torso_right_outer_light')
+	def switchLights():
+		def switchState(digitalComponent):
+			digitalComponent = not digitalComponent
+		switchState(leftLightInner)
+		switchState(leftLightOuter)
+		switchState(rightLightInner)
+		switchState(righLightOuter)
+		switchState(torsoLeftLightInner)
+		switchState(torsoLeftLightOuter)
+		switchState(torsoRightLightInner)
+		switchState(torsoRightLightOuter)
+
 	leftLightInner.state = not leftLightInner.state
 	rospy.sleep(1)
 	leftLightInner.state = not leftLightInner.state
