@@ -9,7 +9,8 @@ def main():
     rospy.init_node('sonar_demo', anonymous=True)
     s = SIO.SonarIO()
     for i in range(0, 100):
-        print(len(s.state()))
+        print("State :", len(s.state()), "Enabled: ", s.get_sonars_enabled())
+
         rospy.sleep(0.2)
 
 if __name__ == '__main__':
