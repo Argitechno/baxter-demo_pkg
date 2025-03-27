@@ -25,13 +25,13 @@ class SonarLightsIO(object):
                 self._on_lights)
             
             #Make a subscriber for the red_level
-            self._sub_state = rospy.Subscriber(
+            self._sub_red_level = rospy.Subscriber(
                 topic_base + '/red_level',
                 Float32,
                 self._on_red_level)
             
             #Make a subscriber for the green_level
-            self._sub_state = rospy.Subscriber(
+            self._sub_green_level = rospy.Subscriber(
                 topic_base + '/green_level',
                 Float32,
                 self._on_green_level)
@@ -143,7 +143,7 @@ class SonarLightsIO(object):
                     test=lambda: self._green_level != value,
                     timeout=timeout,
                     rate=100,
-                    timeout_msg=("Failed to command sonar red level to: %d" % (value,)),
+                    timeout_msg=("Failed to command sonar green level to: %d" % (value,)),
                     body=lambda: self._pub_green_level.publish(cmd)
                 )
 
