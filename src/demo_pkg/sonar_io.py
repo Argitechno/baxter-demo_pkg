@@ -17,7 +17,7 @@ class SonarIO(object):
     #And then we can make public functions to access or set these.
     def __init__(self):
         topic_base = "/robot/sonar/head_sonar"
-        
+        self._sonars_enabled = 0
         #State is a dictionary for the elements of PointCloud
         self._state = dict()
 
@@ -26,6 +26,12 @@ class SonarIO(object):
             topic_base + '/state',
             PointCloud,
             self._on_sonar_state)
+        
+        #Make a subscriber for sonars_enabled
+        self._sub_state = rospy.Subscriber(
+            topic_base + '/sonars_enabled',
+            UInt16,
+            self._on_sonars_enabled)
         
         #Make sure that we HAVE the state
         baxter_dataflow.wait_for(
@@ -56,8 +62,15 @@ class SonarIO(object):
         self._state['points'] = msg.points
         self._state['channels'] = msg.channels
 
+    #Updates the internal sonars enabled
+    def _on_sonars_enabled(self, msg):
+        self._sonars_enabled = msg.data
+
     def state(self):
         #Return the last points we  got.
         return self._state['points']
+    
+    def get_sonars_enabled(self):
+        return self._sonars_enabled
         
         
