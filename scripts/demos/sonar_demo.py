@@ -15,6 +15,12 @@ def main():
         print("State :", len(s.state()), "Enabled: ", bin(s.get_sonars()))
         rospy.sleep(1)
     
+    s.set_sonars(4095)
+    print("Lights Test...")
+    for i in range(0, 12):
+        print("Lights On: ", bin(l.get_lights()))
+        rospy.sleep(1)
+
     print("Lights Show!!!")
     rate = rospy.Rate(100)
     targetExit = rospy.Time.now() + rospy.Duration(5)
@@ -22,6 +28,7 @@ def main():
         l.set_lights(int('0b101010101010',2))
         rate.sleep()
         
+    
 
 if __name__ == '__main__':
     main()
