@@ -120,14 +120,14 @@ class SonarLightsIO(object):
             #cmd.data = value
             self._pub_red_level.publish(cmd)
 
-            if not timeout == 0:
-                baxter_dataflow.wait_for(
-                    test=lambda: self._red_level != value,
-                    timeout=timeout,
-                    rate=100,
-                    timeout_msg=("Failed to command sonar red level to: %d" % (value,)),
-                    body=lambda: self._pub_red_level.publish(cmd)
-                )
+            #if not timeout == 0:
+            #    baxter_dataflow.wait_for(
+            #        test=lambda: self._red_level != value,
+            #        timeout=timeout,
+            #        rate=100,
+            #        timeout_msg=("Failed to command sonar red level to: %d" % (value,)),
+            #        body=lambda: self._pub_red_level.publish(cmd)
+             #   )
 
         def get_red_level(self):
             return self._red_level
@@ -138,14 +138,14 @@ class SonarLightsIO(object):
             #cmd.data = value
             self._pub_green_level.publish(cmd)
 
-            if not timeout == 0:
-                baxter_dataflow.wait_for(
-                    test=lambda: self._green_level != value,
-                    timeout=timeout,
-                    rate=100,
-                    timeout_msg=("Failed to command sonar green level to: %d" % (value,)),
-                    body=lambda: self._pub_green_level.publish(cmd)
-                )
+            #if not timeout == 0:
+            #    baxter_dataflow.wait_for(
+            #        test=lambda: self._green_level != value,
+            #        timeout=timeout,
+            #        rate=100,
+            #        timeout_msg=("Failed to command sonar green level to: %d" % (value,)),
+            #        body=lambda: self._pub_green_level.publish(cmd)
+            #    )
 
         def get_green_level(self):
             return self._green_level
