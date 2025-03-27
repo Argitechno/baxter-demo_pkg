@@ -54,7 +54,7 @@ class SonarIO(object):
     def _on_sonar_state(self, msg):
         self._state['header'] = msg.header
         self._state['points'] = msg.points
-        self._state['channel'] = msg.channel
+        self._state['channels'] = msg.channels
 
     def state(self):
         #Return the last points we  got.
