@@ -28,7 +28,7 @@ class SonarIO(object):
             self._on_sonar_state)
         
         #Make a subscriber for sonars_enabled
-        self._sub_state = rospy.Subscriber(
+        self._sub_sonars = rospy.Subscriber(
             topic_base + '/sonars_enabled',
             UInt16,
             self._on_sonars_enabled)
@@ -40,6 +40,12 @@ class SonarIO(object):
             timeout_msg="Failed to get current sonar state from %s" \
             % (topic_base,),
         )
+
+        #Make a publisher for set_sonars_enabled
+        self._pub_sonars = rospy.Publisher(
+                topic_base + '/set_sonars_enabled',
+                UInt16,
+                queue_size=10)
 
         # Control: 
         # robot/sonar/head_sonar/
@@ -63,14 +69,36 @@ class SonarIO(object):
         self._state['channels'] = msg.channels
 
     #Updates the internal sonars enabled
-    def _on_sonars_enabled(self, msg):
+    def _on_sonars(self, msg):
         self._sonars_enabled = msg.data
 
     def state(self):
         #Return the last points we  got.
         return self._state['points']
     
-    def get_sonars_enabled(self):
+    def set_sonars(self, value, timeout=2.0):
+        #Control which sonars are enabled.
+        #@type value: uint16
+        #@param value: Int rep of binary for which sonars to have on. (Ex: 0b000000101010, 6th, 4th, and 2nd sonars on.)
+        #@type timeout: float
+        #@param timeout: Seconds to wait for the io to reflect command.
+        #                If 0, just command once and return. [0]
+        cmd = UInt16
+        cmd.data = value
+        self._pub_sonars.publish(cmd)
+        if not timeout == 0:
+            baxter_dataflow.wait_for(
+                test=lambda: self.state() == value,
+                timeout=timeout,
+                rate=100,
+                timeout_msg=("Failed to command sonars to: %d" % (value,)),
+                body=lambda: self._pub_output.publish(cmd)
+            )
+
+        pass
+        
+
+    def get_sonars(self):
+        #Get the value of representing if the sonars are on or not.
+        #Int rep of binary for which sonars are on. (Ex: 0b000000101010, 6th, 4th, and 2nd sonars on.)
         return self._sonars_enabled
-        
-        
