@@ -41,3 +41,5 @@ def main():
 	headRedLight.state = not headRedLight
 	print(headRedLight.state, " : HRL")
 
+if __name__ == '__main__':
+    main()
