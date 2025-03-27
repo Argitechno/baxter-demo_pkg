@@ -52,14 +52,13 @@ class SonarLightsIO(object):
             #cmd.data = value
             self._pub_lights.publish(cmd)
 
-            #small problem: for some reason, the lights never actually say they are on,,, so... yk
-            #if not timeout == 0:
-            #    baxter_dataflow.wait_for(
-            #        test=lambda: self._lights == value,
-            #        timeout=timeout,
-            #        rate=100,
-            #        timeout_msg=("Failed to command lights to: %d" % (value,)),
-            #        body=lambda: self._pub_lights.publish(cmd)
+            if not timeout == 0:
+                baxter_dataflow.wait_for(
+                    test=lambda: (self._lights & 4095) == (value & 4095),
+                    timeout=timeout,
+                    rate=100,
+                    timeout_msg=("Failed to command lights to: %d" % (value,)),
+                    body=lambda: self._pub_lights.publish(cmd)
             #    )   
 
         def get_lights(self):
