@@ -6,8 +6,10 @@ find_package(catkin REQUIRED COMPONENTS
 	rospy
 	std_msgs
 	message_generation
+	baxter_interface
 )
 
+catkin_python_setup()
 
 add_message_files(FILES
 
@@ -28,10 +30,10 @@ generate_messages(DEPENDENCIES
 
 ## Build depends
 catkin_package(CATKIN_DEPENDS
-
 	rospy
 	std_msgs
 	message_runtime
+	baxter_interface
 )
 
 
@@ -43,9 +45,7 @@ catkin_package(CATKIN_DEPENDS
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS 
-	src/sonar_io.py
-
-	scripts/tests/first_publish_node.py 
+	scripts/tests/first_publish_node.py
 	scripts/tests/first_subscriber_node.py
 	scripts/tests/add_two_ints_server.py
 	scripts/tests/add_two_ints_client.py
