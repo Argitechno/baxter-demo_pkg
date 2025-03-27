@@ -59,7 +59,7 @@ class SonarLightsIO(object):
                     rate=100,
                     timeout_msg=("Failed to command lights to: %d" % (value,)),
                     body=lambda: self._pub_lights.publish(cmd)
-            #    )   
+                )   
 
         def get_lights(self):
         #Get the value of representing if the sonars are on or not.
