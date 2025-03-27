@@ -15,6 +15,7 @@ def main():
         print("State :", len(s.state()), "Enabled: ", bin(s.get_sonars()))
         rospy.sleep(1)
     
+    print("Lights Show!!!")
     rate = rospy.Rate(100)
     targetExit = rospy.Time.now() + rospy.Duration(5)
     while rospy.Time.now() < targetExit:
