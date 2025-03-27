@@ -92,7 +92,7 @@ class SonarIO(object):
                 timeout=timeout,
                 rate=100,
                 timeout_msg=("Failed to command sonars to: %d" % (value,)),
-                body=lambda: self._pub_output.publish(cmd)
+                body=lambda: self._pub_sonars.publish(cmd)
             )
 
         pass
