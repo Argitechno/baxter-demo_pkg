@@ -8,7 +8,7 @@ import demo_pkg.sonar_io as SIO
 def main():
     rospy.init_node('sonar_demo', anonymous=True)
     s = SIO.SonarIO()
-    l = s.lights()
+    l = s.lights
     for i in range(0, 12):
         s.set_sonars(2**i)
         print("State :", len(s.state()), "Enabled: ", bin(s.get_sonars()))
