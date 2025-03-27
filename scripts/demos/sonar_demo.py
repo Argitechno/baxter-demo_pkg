@@ -23,8 +23,8 @@ def main():
         g = (100*math.sin(math.pi * i/22))
         print("Lights On: ", bin(l.get_lights()))
         print("Red desired: %d, Green desired: %d" % (r,g,))
-        l.set_red_level(r)
-        l.set_green_level(g)
+        l.set_red_level(r, 4)
+        l.set_green_level(g, 4)
         print("Red actual:  %d, Green actual:  %d" % (l.get_red_level(),l.get_green_level(),))
         rospy.sleep(1)
 
