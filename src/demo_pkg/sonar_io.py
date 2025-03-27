@@ -88,7 +88,7 @@ class SonarIO(object):
         self._pub_sonars.publish(cmd)
         if not timeout == 0:
             baxter_dataflow.wait_for(
-                test=lambda: self._sonars() == value,
+                test=lambda: self._sonars == value,
                 timeout=timeout,
                 rate=100,
                 timeout_msg=("Failed to command sonars to: %d" % (value,)),
