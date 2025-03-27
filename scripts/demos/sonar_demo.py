@@ -19,13 +19,13 @@ def main():
     s.set_sonars(4095)
     print("Lights Test...")
     for i in range(0, 12):
-        r = (50*math.cos(2 * math.pi * i/11) + 50)
-        g = (50*math.sin(2 * math.pi * i/11) + 50)
+        r = (100*math.cos(math.pi * i/22))
+        g = (100*math.sin(math.pi * i/22))
         print("Lights On: ", bin(l.get_lights()))
         print("Red desired: %d, Green desired: %d" % (r,g,))
-        print("Red actual:  %d, Green actual:  %d" % (l.get_red_level(),l.get_green_level(),))
         l.set_red_level(r)
         l.set_green_level(g)
+        print("Red actual:  %d, Green actual:  %d" % (l.get_red_level(),l.get_green_level(),))
         rospy.sleep(1)
 
     print("Lights Show!!!")
