@@ -38,7 +38,7 @@ class SonarLightsIO(object):
 
         def _on_lights(self, msg):
             self._lights = msg.data
-            print("Got some light update", msg)
+            #print("Got some light update", msg)
 
         def set_lights(self, value, timeout=2.0):
             #Control which sonar lights are enabled.
