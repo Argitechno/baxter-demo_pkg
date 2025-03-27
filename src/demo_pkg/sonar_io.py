@@ -85,6 +85,7 @@ class SonarIO(object):
         #                If 0, just command once and return. [0]
         cmd = UInt16
         cmd.data = value
+        print(cmd.data)
         self._pub_sonars.publish(cmd)
         if not timeout == 0:
             baxter_dataflow.wait_for(
