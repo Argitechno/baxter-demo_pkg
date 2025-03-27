@@ -83,8 +83,8 @@ class SonarIO(object):
         #@type timeout: float
         #@param timeout: Seconds to wait for the io to reflect command.
         #                If 0, just command once and return. [0]
-        cmd = UInt16
-        cmd.data = value
+        cmd = value
+        #cmd.data = value
         print(cmd.data)
         self._pub_sonars.publish(cmd)
         if not timeout == 0:
