@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # license removed for brevity
 import rospy
+import math
 from std_msgs.msg import String
 import demo_pkg.sonar_io as SIO
 import demo_pkg.sonar_lights_io as SLIO
@@ -19,6 +20,8 @@ def main():
     print("Lights Test...")
     for i in range(0, 12):
         print("Lights On: ", bin(l.get_lights()))
+        l.set_red_level(100*math.cos(2 * math.pi * i/11))
+        l.set_green_level(100*math.cos(2 * math.pi * i/11))
         rospy.sleep(1)
 
     print("Lights Show!!!")
