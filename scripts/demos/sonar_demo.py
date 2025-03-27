@@ -21,8 +21,8 @@ def main():
     for i in range(0, 12):
         print("Lights On: ", bin(l.get_lights()), "Red and Green: ", l.get_red_level(), l.get_green_level())
 
-        #l.set_red_level(100*math.cos(2 * math.pi * i/11))
-        #l.set_green_level(100*math.cos(2 * math.pi * i/11))
+        l.set_red_level(100*math.cos(2 * math.pi * i/11))
+        l.set_green_level(100*math.cos(2 * math.pi * i/11))
         rospy.sleep(1)
 
     print("Lights Show!!!")

@@ -118,7 +118,7 @@ class SonarLightsIO(object):
             #Value 0-100 for brightness of the red
             cmd = value
             #cmd.data = value
-            self._pub_lights.publish(cmd)
+            self._pub_red_level.publish(cmd)
 
             if not timeout == 0:
                 baxter_dataflow.wait_for(
@@ -136,7 +136,7 @@ class SonarLightsIO(object):
             #Value 0-100 for brightness of the red
             cmd = value
             #cmd.data = value
-            self._pub_lights.publish(cmd)
+            self._pub_green_level.publish(cmd)
 
             if not timeout == 0:
                 baxter_dataflow.wait_for(
