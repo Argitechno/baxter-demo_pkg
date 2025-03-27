@@ -85,14 +85,14 @@ class SonarIO(object):
         cmd = value
         #cmd.data = value
         print(cmd)
-        self._pub_sonars.publish(1111)
+        self._pub_sonars.publish(cmd)
         if not timeout == 0:
             baxter_dataflow.wait_for(
-                test=lambda: self.state() == value,
+                test=lambda: self._sonars() == value,
                 timeout=timeout,
                 rate=100,
                 timeout_msg=("Failed to command sonars to: %d" % (value,)),
-                body=lambda: self._pub_sonars.publish(1111)
+                body=lambda: self._pub_sonars.publish(cmd)
             )
 
         pass
