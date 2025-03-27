@@ -46,7 +46,6 @@ class SonarIO(object):
                 topic_base + '/set_sonars_enabled',
                 UInt16,
                 queue_size=10)
-
         # Control: 
         # robot/sonar/head_sonar/
         #   approach_alert          Approach/ApproachAlert (No idea what this is, no publishers, only subscriber is realtime_loop)
@@ -86,14 +85,14 @@ class SonarIO(object):
         cmd = value
         #cmd.data = value
         print(cmd)
-        self._pub_sonars.publish(cmd)
+        self._pub_sonars.publish(1111)
         if not timeout == 0:
             baxter_dataflow.wait_for(
                 test=lambda: self.state() == value,
                 timeout=timeout,
                 rate=100,
                 timeout_msg=("Failed to command sonars to: %d" % (value,)),
-                body=lambda: self._pub_sonars.publish(cmd)
+                body=lambda: self._pub_sonars.publish(1111)
             )
 
         pass
