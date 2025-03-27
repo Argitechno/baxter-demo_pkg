@@ -1,5 +1,4 @@
 import errno
-
 import rospy
 import baxter_dataflow
 

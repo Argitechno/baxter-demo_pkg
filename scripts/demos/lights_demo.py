@@ -4,6 +4,8 @@ import rospy
 from std_msgs.msg import String
 import baxter_interface.digital_io as DIO
 
+rospy.init_node('lights_demo', anonymous=True)
+
 leftLightInner = DIO.DigitalIO('left_inner_light')
 leftLightOuter = DIO.DigitalIO('left_outer_light')
 rightLightInner = DIO.DigitalIO('right_inner_light')
