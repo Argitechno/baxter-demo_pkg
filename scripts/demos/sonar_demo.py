@@ -16,7 +16,7 @@ def main():
         #print("State :", len(s.state()), "Enabled: ", bin(s.get_sonars()))
         rospy.sleep(0.1)
     s.set_sonars(4095)
-    
+
     print("Lights Test...")
     for i in range(0, 12):
         r = (100*math.cos(math.pi * i/22))
@@ -32,7 +32,12 @@ def main():
     rate = rospy.Rate(100)
     targetExit = rospy.Time.now() + rospy.Duration(5)
     while rospy.Time.now() < targetExit:
-        l.set_lights(int('0b101010101010',2))
+        time_elapsed = (targetExit - rospy.Time.now())
+        parts_elapsed = math.modf(3 * time_elapsed/rospy.Duration(1))[1]
+        if  parts_elapsed % 2:
+            l.set_lights(int('0b101010101010',2))
+        else:
+            l.set_lights(int('0b010101010101',2))
         rate.sleep()
         
     
