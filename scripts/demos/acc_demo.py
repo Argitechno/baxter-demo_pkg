@@ -8,7 +8,7 @@ def main():
     rospy.init_node('acc_demo', anonymous=True)
 
     print("Initializing Acc Object")
-    rightAcc = AccelerometerIO.AccIO('right_accelerometer')
+    rightAcc = AccelerometerIO.AccelerometerIO('right_accelerometer')
 
     print("Starting acc monitor...")
     rate = rospy.Rate(2)
