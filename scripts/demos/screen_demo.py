@@ -9,9 +9,9 @@ import os.path
 from sensor_msgs.msg import Image
 
 def resize(img):
-    height, width, layers = frame.shape
+    height, width, layers = img.shape
     scale = min(600/height, 1024/width)
-    frame = cv2.resize(frame, (scale * width, scale * height))
+    img = cv2.resize(img, (scale * width, scale * height))
 
 def main():
     print("Checking Video")
