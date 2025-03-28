@@ -13,7 +13,6 @@ def open_cam(camera, res):
     cam = CameraController(camera) 
     cam.resolution = res 
     cam.open()
-
 def close_cam(camera):
     cam = CameraController(camera)
     cam.close()
@@ -26,7 +25,7 @@ def main():
     close_cam('left_hand_camera')
 
     print("Opening head camera")
-    open_cam('head_camera')
+    open_cam('head_camera', (1280, 700))
 
     bridge = cv_bridge.CvBridge()
     def image_callback(ros_img):
