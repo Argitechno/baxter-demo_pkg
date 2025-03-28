@@ -19,14 +19,20 @@ def close_cam(camera):
     cam.close()
 
 def main():
+    print("Initializing Node")
     rospy.init_node('camera_demo', anonymous=True)
+
+    print("Opening head camera")
     close_cam('left_hand_camera')
     open_cam('torso_camera')
+
     bridge = cv_bridge.CvBridge()
     def image_callback(ros_img):
         cv_image = bridge.imgmsg_to_cv2(ros_img, desired_encoding = "passthrough")
         cv2.imshow('Image', cv_image)
         cv2.waitKey(1)
+        
+    print("Opening subscriber to image.")
     rospy.Subscriber('/cameras/torso_camera/image', Image, image_callback)
     rospy.spin()
     cv2.destroyAllWindows()
