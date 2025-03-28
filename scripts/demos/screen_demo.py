@@ -12,7 +12,7 @@ def resize(img):
     height, width, layers = img.shape
     scale = min(600.0/height, 1024.0/width)
     print("(%f, %f) to (%f, %f) Scale: %f" % (width, height, width * scale, height * scale, scale))
-    return cv2.resize(img, (scale * width, scale * height))
+    return cv2.resize(img, (int(scale * width), int(scale * height)))
     
 
 def main():
