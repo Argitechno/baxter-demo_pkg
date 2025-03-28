@@ -25,12 +25,15 @@ def main():
 
     print("Opening Video")
     video = cv2.VideoCapture(rickroll)
-
+    
     print("Link Start!")
     fps = video.get(cv2.CAP_PROP_FPS)
     rate = rospy.Rate(fps)
     while not rospy.is_shutdown():
         _, frame = video.read()
+        height, width, layers = frame.shape
+        scale = min((800/height), 1280/width)
+        frame = cv2.resize(frame, (scale * height, scale * width))
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
         pub.publish(msg)
         rate.sleep()
@@ -42,6 +45,9 @@ def main():
         video.release()
         cv2.destroyAllWindows()
     img = cv2.imread(evil_baxter)
+    height, width, layers = img.shape
+    scale = min((800/height), 1280/width)
+    img = cv2.resize(img, (scale * height, scale * width))
     msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8")
     pub.publish(msg)
     rospy.sleep(1)
