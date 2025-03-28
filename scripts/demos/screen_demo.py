@@ -33,7 +33,7 @@ def main():
     while not rospy.is_shutdown() and rospy.Time.now() < targetExit:
         _, frame = video.read()
         height, width, layers = frame.shape
-        scale = min((600/height), 960/width)
+        scale = min(600/height, 1024/width)
         frame = cv2.resize(frame, (scale * width, scale * height))
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
         pub.publish(msg)
@@ -47,7 +47,7 @@ def main():
         cv2.destroyAllWindows()
     img = cv2.imread(evil_baxter)
     height, width, layers = img.shape
-    scale = min((600/height), 960/width)
+    scale = min(600/height, 1024/width)
     img = cv2.resize(img, (scale * width, scale * height))
     msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8")
     pub.publish(msg)
