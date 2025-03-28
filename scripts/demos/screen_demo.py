@@ -8,6 +8,11 @@ import os.path
 
 from sensor_msgs.msg import Image
 
+def resize(img):
+    height, width, layers = frame.shape
+    scale = min(600/height, 1024/width)
+    frame = cv2.resize(frame, (scale * width, scale * height))
+
 def main():
     print("Checking Video")
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -32,9 +37,7 @@ def main():
     targetExit = rospy.Time.now() + rospy.Duration(20)
     while not rospy.is_shutdown() and rospy.Time.now() < targetExit:
         _, frame = video.read()
-        height, width, layers = frame.shape
-        scale = min(600/height, 1024/width)
-        frame = cv2.resize(frame, (scale * width, scale * height))
+        resize(frame)
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
         pub.publish(msg)
         rate.sleep()
@@ -46,9 +49,7 @@ def main():
         video.release()
         cv2.destroyAllWindows()
     img = cv2.imread(evil_baxter)
-    height, width, layers = img.shape
-    scale = min(600/height, 1024/width)
-    img = cv2.resize(img, (scale * width, scale * height))
+    resize(img)
     msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8")
     pub.publish(msg)
     rospy.sleep(1)
