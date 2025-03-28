@@ -29,14 +29,11 @@ def main():
     print("Link Start!")
     fps = video.get(cv2.CAP_PROP_FPS)
     rate = rospy.Rate(fps)
-    while True:
+    while not rospy.is_shutdown():
         _, frame = video.read()
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
         pub.publish(msg)
         k = cv2.waitKey(1) & 0xFF
-        # press 'q' to exit
-        if k == ord('q'):
-            break 
         rate.sleep()
     
     video.release()
