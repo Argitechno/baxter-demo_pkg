@@ -29,7 +29,8 @@ def main():
     print("Link Start!")
     fps = video.get(cv2.CAP_PROP_FPS)
     rate = rospy.Rate(fps)
-    while not rospy.is_shutdown():
+    targetExit = rospy.Time.now() + rospy.Duration(20)
+    while not rospy.is_shutdown() and rospy.Time.now() < targetExit:
         _, frame = video.read()
         height, width, layers = frame.shape
         scale = min((800/height), 1280/width)
