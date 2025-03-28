@@ -11,7 +11,7 @@ from sensor_msgs.msg import Image
 def main():
     print("Checking Video")
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    rickroll = rbase_dir + '/../../assets/rickroll.mp4'
+    rickroll = base_dir + '/../../assets/rickroll.mp4'
     if not os.path.isfile(rickroll):
         print("No file exists at: ")
         print(rickroll)
