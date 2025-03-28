@@ -45,6 +45,7 @@ def main():
     print("Initializing Node")
     rospy.init_node('camera_demo', anonymous=True)
 
+    print("Getting camera list")
     cameras = list_cameras()
 
     if(not cameras['head_camera'] and cameras['left_hand_camera']):
