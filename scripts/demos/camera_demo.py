@@ -48,7 +48,7 @@ def main():
     print("Getting camera list")
     cameras = list_cameras()
 
-    if(not cameras['head_camera'] and cameras['left_hand_camera']):
+    if(not cameras.get('head_camera', False) and cameras.get('left_hand_camera', False) ):
         print("Closing left hand camera")
         close_cam('left_hand_camera')
     print("Opening head camera")
