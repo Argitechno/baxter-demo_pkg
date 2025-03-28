@@ -13,7 +13,7 @@ def main():
     rate = rospy.Rate(60)
     while True:
         _, frame = video.read()
-        print(type(frame))
+        print(frame)
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
 
         if cv2.waitKey(1) & 0xFF == ord("q"):
