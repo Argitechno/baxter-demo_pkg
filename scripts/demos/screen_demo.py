@@ -31,7 +31,6 @@ def main():
     rate = rospy.Rate(fps)
     while True:
         _, frame = video.read()
-        print(frame)
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
         pub.publish(msg)
         k = cv2.waitKey(1) & 0xFF
