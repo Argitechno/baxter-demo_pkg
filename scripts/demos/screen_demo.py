@@ -3,7 +3,7 @@
 import rospy
 import cv2
 import cv_bridge
-from pathlib import Path
+from pathlib2 import Path
 
 
 from sensor_msgs.msg import Image
