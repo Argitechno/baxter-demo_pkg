@@ -28,8 +28,7 @@ def main():
     rospy.init_node('screen_demo', anonymous=True)
 
     print("Opening Publisher")
-    pubVid = rospy.Publisher('/robot/xdisplay', Image, queue_size = 1)
-    pubImg = rospy.Publisher('/robot/xdisplay', Image, latch = True, queue_size = 1)
+    pub = rospy.Publisher('/robot/xdisplay', Image, latch = True, queue_size = 1)
     print("Opening Video")
     video = cv2.VideoCapture(rickroll)
     
@@ -41,19 +40,20 @@ def main():
         _, frame = video.read()
         frame = resize(frame)
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
-        pubVid.publish(msg)
+        pub.publish(msg)
         rate.sleep()
-    
+    video.release()
+    cv2.destroyAllWindows()
+
     evil_baxter = base_dir + '/../../assets/evil_baxter.jpeg'
     if not os.path.isfile(evil_baxter):
         print("No file exists at: ")
         print(evil_baxter)
-        video.release()
-        cv2.destroyAllWindows()
+        
     img = cv2.imread(evil_baxter)
     img = resize(img)
     msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8")
-    pubImg.publish(msg)
+    pub.publish(msg)
     rospy.sleep(1)
 
     video.release()
