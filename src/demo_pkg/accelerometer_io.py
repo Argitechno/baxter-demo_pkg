@@ -29,13 +29,14 @@ class AccelerometerIO(object):
 
     #Updates the internal imu state
     def _on_acc_state(self, msg):
-        print(msg)
-        self._state['header'] = msg.header
-        self._state['orientation'] = msg.orientation
-        self._state['orientation_covariance'] = msg.orientation_covariance
-        self._state['angular_velocity'] = msg.angular_velocity
-        self._state['angular_velocity_covariance'] = msg.angular_velocity_covariance
+        #We don't need: self._state['header'] = msg.header
+        #Not used here: self._state['orientation'] = msg.orientation
+        #Not used here: self._state['orientation_covariance'] = msg.orientation_covariance
+        #Not used here: self._state['angular_velocity'] = msg.angular_velocity
+        #Not used here: self._state['angular_velocity_covariance'] = msg.angular_velocity_covariance
         self._state['linear_acceleration'] = msg.linear_acceleration
-        self._state['linear_acceleration_covariance'] = msg.linear_acceleration_covariance
+        #Not used here: self._state['linear_acceleration_covariance'] = msg.linear_acceleration_covariance
     
+    def get_linear_acceleration():
+        return self._state['linear_acceleration']
     

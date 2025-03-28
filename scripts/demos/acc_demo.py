@@ -14,6 +14,7 @@ def main():
     rate = rospy.Rate(2)
     targetExit = rospy.Time.now() + rospy.Duration(5)
     while rospy.Time.now() < targetExit:
+        print(rightAcc.get_linear_acceleration())
         rate.sleep()
 
 if __name__ == '__main__':
