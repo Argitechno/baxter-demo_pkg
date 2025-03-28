@@ -58,7 +58,6 @@ catkin_install_python(PROGRAMS
 
 	scripts/accelerometer_listener.py
 	scripts/ir_sensor_listener.py
-	scripts/sonar_sensor_listener.py
   	DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
