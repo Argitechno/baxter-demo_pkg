@@ -9,15 +9,24 @@ import os.path
 from sensor_msgs.msg import Image
 
 def main():
-    rickroll = '../../assets/rickroll.mp4'
+    print("Checking Video")
+    rickroll = os.path.dirname(os.path.abspath(__file__))
+    rickroll = rickroll + '/../../assets/rickroll.mp4'
     if not os.path.isfile(rickroll):
         print("No file exists at: ")
         print(rickroll)
         return
+    
+    print("Initializing Node")
     rospy.init_node('screen_demo', anonymous=True)
+
+    print("Opening Publisher")
     pub = rospy.Publisher('/robot/xdisplay', Image, latch = True, queue_size = 1)
+
+    print("Opening Video")
     video = cv2.VideoCapture(os.path(rickroll))
 
+    print("Link Start!")
     fps = video.get(cv2.CAP_PROP_FPS)
     rate = rospy.Rate(fps)
     while True:
