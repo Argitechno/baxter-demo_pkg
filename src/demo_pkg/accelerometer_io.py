@@ -3,7 +3,7 @@ import rospy
 import baxter_dataflow
 from sensor_msgs.msg import Imu
 
-class AccIO(object):
+class AccelerometerIO(object):
 
     def __init__(self, component_id):
         self._id = component_id
