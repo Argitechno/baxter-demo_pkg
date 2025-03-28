@@ -54,6 +54,7 @@ def main():
     print("Opening head camera")
     open_cam('head_camera', (1280, 800))
 
+    print("Opening bridge")
     bridge = cv_bridge.CvBridge()
     def image_callback(ros_img):
         cv_image = bridge.imgmsg_to_cv2(ros_img, desired_encoding = "passthrough")
