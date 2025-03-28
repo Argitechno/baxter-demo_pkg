@@ -37,6 +37,6 @@ class AccelerometerIO(object):
         self._state['linear_acceleration'] = msg.linear_acceleration
         #Not used here: self._state['linear_acceleration_covariance'] = msg.linear_acceleration_covariance
     
-    def get_linear_acceleration():
+    def get_linear_acceleration(self):
         return self._state['linear_acceleration']
     
