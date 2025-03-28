@@ -34,8 +34,10 @@ def main():
         print(frame)
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
         pub.publish(msg)
-        if cv2.waitKey(1) & 0xFF == ord("q"):
-            break   
+        k = cv2.waitKey(1) & 0xFF
+        # press 'q' to exit
+        if k == ord('q'):
+            break 
         rate.sleep()
     
     video.release()
