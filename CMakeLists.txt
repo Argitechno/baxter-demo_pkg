@@ -56,6 +56,7 @@ catkin_install_python(PROGRAMS
 	scripts/demos/lights_demo.py
 	scripts/demos/camera_demo.py
 	scripts/demos/infrared_demo.py
+	scripts/demos/acc_demo.py
 
 	scripts/accelerometer_listener.py
 	scripts/ir_sensor_listener.py
