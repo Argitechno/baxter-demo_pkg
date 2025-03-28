@@ -24,7 +24,7 @@ def main():
     pub = rospy.Publisher('/robot/xdisplay', Image, latch = True, queue_size = 1)
 
     print("Opening Video")
-    video = cv2.VideoCapture(os.path(rickroll))
+    video = cv2.VideoCapture(rickroll)
 
     print("Link Start!")
     fps = video.get(cv2.CAP_PROP_FPS)
