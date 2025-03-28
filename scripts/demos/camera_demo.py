@@ -22,8 +22,10 @@ def main():
     print("Initializing Node")
     rospy.init_node('camera_demo', anonymous=True)
 
-    print("Opening head camera")
+    print("Closing left hand camera")
     close_cam('left_hand_camera')
+
+    print("Opening head camera")
     open_cam('head_camera')
 
     bridge = cv_bridge.CvBridge()
