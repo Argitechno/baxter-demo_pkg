@@ -10,10 +10,10 @@ def main():
 
     print("Initializing Sensor Object")
     irs = AIO.AnalogIO('right_hand_range')
-    rate = rospy.Rate(2)
-    targetExit = rospy.Time.now() + rospy.Duration(5)
 
     print("Starting range monitor...")
+    rate = rospy.Rate(2)
+    targetExit = rospy.Time.now() + rospy.Duration(5)
     while rospy.Time.now() < targetExit:
         print(irs.state())
         rate.sleep()
