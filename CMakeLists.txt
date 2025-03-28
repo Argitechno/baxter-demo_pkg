@@ -57,7 +57,8 @@ catkin_install_python(PROGRAMS
 	scripts/demos/camera_demo.py
 	scripts/demos/infrared_demo.py
 	scripts/demos/acc_demo.py
-	
+	scripts/demos/screen_demo.py
+
   	DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
