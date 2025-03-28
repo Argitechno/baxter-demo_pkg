@@ -5,7 +5,6 @@ import cv2
 import cv_bridge
 from sensor_msgs.msg import Image
 
-
 def main():
     rospy.init_node('screen_demo', anonymous=True)
     pub = rospy.Publisher('/robot/xdisplay', Image, latch = True, queue_size = 1)
@@ -14,6 +13,7 @@ def main():
     rate = rospy.Rate(60)
     while True:
         _, frame = video.read()
+        print(type(frame))
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
 
         if cv2.waitKey(1) & 0xFF == ord("q"):
