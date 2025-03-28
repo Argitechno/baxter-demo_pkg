@@ -4,6 +4,7 @@ import rospy
 import cv2
 import cv_bridge
 import os.path
+import sys
 
 
 from sensor_msgs.msg import Image
@@ -40,7 +41,7 @@ def main():
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
 
 
 
