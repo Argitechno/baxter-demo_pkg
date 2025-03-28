@@ -16,7 +16,7 @@ def main():
     while rospy.Time.now() < targetExit:
         print('Linear Acc: ')
         print(rightAcc.get_linear_acceleration())
-        print()
+        print('\n')
         rate.sleep()
 
 if __name__ == '__main__':
