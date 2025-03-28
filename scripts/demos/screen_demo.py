@@ -26,8 +26,8 @@ def main():
     rospy.init_node('screen_demo', anonymous=True)
 
     print("Opening Publisher")
-    pub = rospy.Publisher('/robot/xdisplay', Image, latch = True, queue_size = 1)
-
+    pubVid = rospy.Publisher('/robot/xdisplay', Image, queue_size = 1)
+    pubImg = rospy.Publisher('/robot/xdisplay', Image, latch = True, queue_size = 1)
     print("Opening Video")
     video = cv2.VideoCapture(rickroll)
     
@@ -39,7 +39,7 @@ def main():
         _, frame = video.read()
         resize(frame)
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
-        pub.publish(msg)
+        pubVid.publish(msg)
         rate.sleep()
     
     evil_baxter = base_dir + '/../../assets/evil_baxter.jpeg'
@@ -51,7 +51,7 @@ def main():
     img = cv2.imread(evil_baxter)
     resize(img)
     msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8")
-    pub.publish(msg)
+    pubImg.publish(msg)
     rospy.sleep(1)
 
     video.release()
