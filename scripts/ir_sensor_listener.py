@@ -19,7 +19,7 @@ def listener():
 	# anonymous=True flag means that rospy will choose a unique
 	# name for our 'listener' node so that multiple listeners can
 	# run simultaneously.
-	rospy.init_node('accelerometer_listener', anonymous=True)
+	rospy.init_node('ir_sensor_listener', anonymous=True)
 	
 	#We are subscribing to the accelerometer, and will run the callback when we get a msg
 	#With the argument being the msg recieved, a sensor_msgs/Imu in this case
