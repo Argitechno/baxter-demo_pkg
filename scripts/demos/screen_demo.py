@@ -11,7 +11,8 @@ from sensor_msgs.msg import Image
 def resize(img):
     height, width, layers = img.shape
     scale = min(600/height, 1024/width)
-    img = cv2.resize(img, (scale * width, scale * height))
+    return cv2.resize(img, (scale * width, scale * height))
+    
 
 def main():
     print("Checking Video")
@@ -37,7 +38,7 @@ def main():
     targetExit = rospy.Time.now() + rospy.Duration(20)
     while not rospy.is_shutdown() and rospy.Time.now() < targetExit:
         _, frame = video.read()
-        resize(frame)
+        frame = resize(frame)
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
         pubVid.publish(msg)
         rate.sleep()
@@ -49,7 +50,7 @@ def main():
         video.release()
         cv2.destroyAllWindows()
     img = cv2.imread(evil_baxter)
-    resize(img)
+    img = resize(img)
     msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8")
     pubImg.publish(msg)
     rospy.sleep(1)
