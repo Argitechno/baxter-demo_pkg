@@ -23,8 +23,8 @@ if __name__ == '__main__':
 	limb_right.move_to_joint_positions(right_pos)
 	rospy.sleep(3)
 
-	right = { 'right_e0':  -PI/2, 'right_e1':  PI/2, 'right_s0':  PI/4, 'right_s1': -PI/3, 'right_w1':  -PI/2}
-	limb_right.move_to_joint_positions(right)
+	right_pos = { 'right_e0':  -PI/2, 'right_e1':  PI/2, 'right_s0':  PI/4, 'right_s1': -PI/3, 'right_w1':  -PI/2}
+	limb_right.move_to_joint_positions(right_pos)
 	rospy.sleep(3)
 
 	limb_left.move_to_neutral()
@@ -33,5 +33,5 @@ if __name__ == '__main__':
 
 	left_pos =  { 'left_e0'  :  -2*PI/5, 'left_e1'  :  3*PI/5, 'left_s0'  : 0, 'left_s1'  :  -3*PI/10, 'left_w0'  :   PI/5, 'left_w1'  :  3*PI/10, 'left_w2'  :  -PI/5}
 	right_pos = { 'right_e0' :   2*PI/5, 'right_e1' :  3*PI/5, 'right_s0' : 0, 'right_s1' :  -3*PI/10, 'right_w0' :  -PI/5, 'right_w1' :  3*PI/10, 'right_w2' :   PI/5}
-	limb_left.move_to_joint_positions(left)
-	limb_right.move_to_joint_positions(right)
+	limb_left.move_to_joint_positions(left_pos)
+	limb_right.move_to_joint_positions(right_pos)
