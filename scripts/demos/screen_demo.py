@@ -4,15 +4,14 @@ import rospy
 import cv2
 import cv_bridge
 import os.path
-import sys
 
 
 from sensor_msgs.msg import Image
 
 def main():
     print("Checking Video")
-    rickroll = os.path.dirname(os.path.abspath(__file__))
-    rickroll = rickroll + '/../../assets/rickroll.mp4'
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    rickroll = rbase_dir + '/../../assets/rickroll.mp4'
     if not os.path.isfile(rickroll):
         print("No file exists at: ")
         print(rickroll)
@@ -34,14 +33,24 @@ def main():
         _, frame = video.read()
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
         pub.publish(msg)
-        k = cv2.waitKey(1) & 0xFF
         rate.sleep()
     
+    evil_baxter = base_dir + '/../../assets/evil_baxter.jpeg'
+    if not os.path.isfile(evil_baxter):
+        print("No file exists at: ")
+        print(evil_baxter)
+        video.release()
+        cv2.destroyAllWindows()
+    img = cv2.imread(evil_baxter)
+    msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8")
+    pub.publish(msg)
+    rospy.sleep(1)
+
     video.release()
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    sys.exit(main())
+    main()
 
 
 
