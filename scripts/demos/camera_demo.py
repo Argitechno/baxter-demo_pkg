@@ -52,12 +52,11 @@ def main():
         print("Closing left hand camera")
         close_cam('left_hand_camera')
     print("Opening head camera")
-    open_cam('head_camera', (1280, 800))
+    open_cam('head_camera', (640, 400))
 
     print("Opening bridge")
     bridge = cv_bridge.CvBridge()
     def image_callback(ros_img):
-        print("We have image!")
         cv_image = bridge.imgmsg_to_cv2(ros_img, desired_encoding = "passthrough")
         cv2.imshow('Image', cv_image)
         cv2.waitKey(1)
