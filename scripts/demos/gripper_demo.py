@@ -8,9 +8,11 @@ def main():
     gripper = baxter_interface.Gripper('right')
     print("Gripper Demo!")
     gripper.calibrate()
-    # Move to positions 0, 100, 75, 50, 25, 0
-    for i in range(5, -1, -1):
-        gripper.command_position((i % 5) * 25)
+    gripper.close()
+    rospy.sleep(3)
+    # Move to positions 100, 75, 50, 25, 0
+    for i in range(4, -1, -1):
+        gripper.command_position(i  * 25)
         rospy.sleep(3)
     gripper.open()
 
