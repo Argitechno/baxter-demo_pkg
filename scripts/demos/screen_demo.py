@@ -33,7 +33,7 @@ def main():
         _, frame = video.read()
         height, width, layers = frame.shape
         scale = min((800/height), 1280/width)
-        frame = cv2.resize(frame, (scale * height, scale * width))
+        frame = cv2.resize(frame, (scale * width, scale * height))
         msg = cv_bridge.CvBridge().cv2_to_imgmsg(frame, encoding="bgr8")
         pub.publish(msg)
         rate.sleep()
@@ -47,7 +47,7 @@ def main():
     img = cv2.imread(evil_baxter)
     height, width, layers = img.shape
     scale = min((800/height), 1280/width)
-    img = cv2.resize(img, (scale * height, scale * width))
+    img = cv2.resize(img, (scale * width, scale * height))
     msg = cv_bridge.CvBridge().cv2_to_imgmsg(img, encoding="bgr8")
     pub.publish(msg)
     rospy.sleep(1)
