@@ -63,7 +63,7 @@ def main():
         cv2.waitKey(1)
 
     print("Opening subscriber to image.")
-    rospy.Subscriber('/cameras/torso_camera/image', Image, image_callback)
+    rospy.Subscriber('/cameras/head_camera/image', Image, image_callback)
     rospy.spin()
     cv2.destroyAllWindows()
     
