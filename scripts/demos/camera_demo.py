@@ -52,7 +52,7 @@ def main():
         print("Closing left hand camera")
         close_cam('left_hand_camera')
     print("Opening head camera")
-    open_cam('head_camera', (1280, 700))
+    open_cam('head_camera', (1280, 800))
 
     bridge = cv_bridge.CvBridge()
     def image_callback(ros_img):
