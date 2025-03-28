@@ -9,6 +9,7 @@ import baxter_interface
 
 def main():
 	# Initialize our ROS node, registering it with the Master
+	print("Initializing node...")
 	rospy.init_node('joint_demo')
 	PI = np.pi
 	# Create instance of baxter_interface's Limb class
@@ -16,6 +17,8 @@ def main():
 	limb_right = baxter_interface.Limb('right')
 	left_pos =  { 'left_e0' :  0, 'left_e1' :  PI/2.5, 'left_s0' : -PI/3.6, 'left_s1' : -PI/3.6, 'left_w0' :  0, 'left_w1' :  PI/2.8, 'left_w2' :  0}
 	right_pos = { 'right_e0':  0, 'right_e1':  PI/2.5, 'right_s0':  PI/3.6, 'right_s1': -PI/3.6, 'right_w0':  0, 'right_w1':  PI/2.8, 'right_w2':  0}
+
+	print("Begin movement!")
 	limb_left.move_to_joint_positions(left_pos)
 	limb_right.move_to_joint_positions(right_pos)
 	rospy.sleep(3)

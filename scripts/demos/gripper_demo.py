@@ -4,6 +4,7 @@ import rospy
 import baxter_interface
 
 def main():
+    print("Initializing node...")
     rospy.init_node('gripper_demo')
     gripper = baxter_interface.Gripper('right')
     print("Gripper Demo!")
