@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # license removed for brevity
+import baxter_interface.cfg
 import rospy
 import baxter_interface
 
@@ -7,7 +8,13 @@ def main():
     print("Initializing node...")
     rospy.init_node('gripper_demo')
     gripper = baxter_interface.Gripper('right')
+    right_limb = baxter_interface.Limb('right')
     print("Gripper Demo!")
+
+    print("Current Right Wrist Pose: ")
+    print(right_limb.endpoint_pose())
+
+
     gripper.calibrate()
     gripper.close()
     rospy.sleep(3)
