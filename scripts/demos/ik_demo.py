@@ -57,7 +57,7 @@ def main():
                 z =  0.3,
             ),
             orientation = Quaternion(quat_tf[0], quat_tf[1], quat_tf[2], quat_tf[3]),
-        ),
+        )
     )
     print('IK Joint Solution: ')
     print(ik_get('left', pose1))
