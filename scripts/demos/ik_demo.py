@@ -44,24 +44,40 @@ def main():
     print("Initializing Node.")
     rospy.init_node("ik_demo")
     hdr = Header(stamp=rospy.Time.now(), frame_id='base')
-    pose =  PoseStamped(
+    pose1 =  PoseStamped(
         header = hdr,
         pose = Pose(
             position=Point(
-                x=0.657579481614,
-                y=0.851981417433,
-                z=0.0388352386502,
+                x =  0.8445083708840,
+                y = -0.2650950949815,
+                z = -0.1626333282948,
             ),
             orientation=Quaternion(
-                x=-0.366894936773,
-                y=0.885980397775,
-                z=0.108155782462,
-                w=0.262162481772,
+                x=1,
+                y=0,
+                z=0,
+                w=0,
+            ),
+        ),
+    )
+    pose2 = PoseStamped(
+        header = hdr,
+        pose = Pose(
+            position=Point(
+                x =  0.8,
+                y = -0.3,
+                z =  0.5,
+            ),
+            orientation=Quaternion(
+                x =  0.22094238269,
+                y =  0.22094238269,
+                z = -0.22094238269,
+                w = -0.923879532511,
             ),
         ),
     )
     print('IK Joint Solution: ')
-    print(ik_get('left', pose))
+    print(ik_get('left', pose1))
 
 if __name__ == '__main__':
     main()
