@@ -93,5 +93,10 @@ def main():
     if(pose != 0 and pose != 1):
         limb_left.move_to_joint_positions(pose)
         
+    quat_tf = [0.6614378278, 0, 0.75, 0]
+    pose = ik_get('left', get_pose(pos, quat_tf))
+    if(pose != 0 and pose != 1):
+        limb_left.move_to_joint_positions(pose)
+    
 if __name__ == '__main__':
     main()
