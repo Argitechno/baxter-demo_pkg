@@ -52,8 +52,8 @@ def main():
         header = hdr,
         pose = Pose(
             position=Point(
-                x =  0.137,
-                y =  1.025,
+                x =  0.537,
+                y =  0.525,
                 z =  0.24,
             ),
             orientation = Quaternion(quat_tf[0], quat_tf[1], quat_tf[2], quat_tf[3]),
