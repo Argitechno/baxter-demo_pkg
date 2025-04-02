@@ -43,8 +43,8 @@ def ik_get(limb, pose):
 
 def main():
     print("Initializing Node.")
-    limb_left = baxter_interface.Limb('left')
     rospy.init_node("ik_demo")
+    limb_left = baxter_interface.Limb('left')
     hdr = Header(stamp=rospy.Time.now(), frame_id='base')
 
     quat_tf = [1, 0, 0, 0]
