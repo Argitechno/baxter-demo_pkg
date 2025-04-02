@@ -19,6 +19,16 @@ from baxter_core_msgs.srv import (
 )
 
 
+def get_pose(pos_list, quat_list):
+    hdr = Header(stamp=rospy.Time.now(), frame_id='base')
+    return PoseStamped(
+        header = hdr,
+        pose = Pose(
+            position=Point(pos_list[0], pos_list[1], pos_list[2]),
+            orientation = Quaternion(quat_list[0], quat_list[1], quat_list[2], quat_list[3]),
+        )
+    )
+
 def ik_get(limb, pose):
     ns = "ExternalTools/" + limb + "/PositionKinematicsNode/IKService"
     iksvc = rospy.ServiceProxy(ns, SolvePositionIK)
@@ -45,24 +55,43 @@ def main():
     print("Initializing Node.")
     rospy.init_node("ik_demo")
     limb_left = baxter_interface.Limb('left')
-    hdr = Header(stamp=rospy.Time.now(), frame_id='base')
 
     quat_tf = [0.6614378278, 0.75, 0, 0]
-    pose1 =  PoseStamped(
-        header = hdr,
-        pose = Pose(
-            position=Point(
-                x =  0.537,
-                y =  0.525,
-                z =  0.24,
-            ),
-            orientation = Quaternion(quat_tf[0], quat_tf[1], quat_tf[2], quat_tf[3]),
-        )
-    )
-    print('IK Joint Solution: ')
-    result = ik_get('left', pose1)
-    print(result)
-    if(result != 0 and result != 1):
-        limb_left.move_to_joint_positions(result)
+    pos = [0.500, 0.500, 0.25]
+    
+    pose = ik_get('left', get_pose(pos, quat_tf))
+    if(pose != 0 and pose != 1):
+        limb_left.move_to_joint_positions(pose)
+
+    pos[0] = 1
+
+    pose = ik_get('left', get_pose(pos, quat_tf))
+    if(pose != 0 and pose != 1):
+        limb_left.move_to_joint_positions(pose)
+    
+    pos[1] = 1
+
+    pose = ik_get('left', get_pose(pos, quat_tf))
+    if(pose != 0 and pose != 1):
+        limb_left.move_to_joint_positions(pose)
+
+    pos[0] = 0.5
+
+    pose = ik_get('left', get_pose(pos, quat_tf))
+    if(pose != 0 and pose != 1):
+        limb_left.move_to_joint_positions(pose)
+
+    pos[0] = 0.5
+
+    pose = ik_get('left', get_pose(pos, quat_tf))
+    if(pose != 0 and pose != 1):
+        limb_left.move_to_joint_positions(pose)
+    
+    pos[2] = 0
+
+    pose = ik_get('left', get_pose(pos, quat_tf))
+    if(pose != 0 and pose != 1):
+        limb_left.move_to_joint_positions(pose)
+        
 if __name__ == '__main__':
     main()
