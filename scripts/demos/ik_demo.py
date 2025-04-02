@@ -19,7 +19,6 @@ from baxter_core_msgs.srv import (
 
 
 def ik_get(limb, pose):
-    rospy.init_node("ik_demo")
     ns = "ExternalTools/" + limb + "/PositionKinematicsNode/IKService"
     iksvc = rospy.ServiceProxy(ns, SolvePositionIK)
     ikreq = SolvePositionIKRequest()
@@ -42,6 +41,7 @@ def ik_get(limb, pose):
         return 0
 
 def main():
+    rospy.init_node("ik_demo")
     hdr = Header(stamp=rospy.Time.now(), frame_id='base')
     pose = {
         'left': PoseStamped(
