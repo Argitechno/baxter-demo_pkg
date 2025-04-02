@@ -60,8 +60,9 @@ def main():
         )
     )
     print('IK Joint Solution: ')
-    print(ik_get('left', pose1))
-    if(pose1 != 0 and pose1 != 1):
-        limb_left.move_to_joint_positions(pose1)
+    result = ik_get('left', pose1)
+    print(result)
+    if(result != 0 and result != 1):
+        limb_left.move_to_joint_positions(result)
 if __name__ == '__main__':
     main()
