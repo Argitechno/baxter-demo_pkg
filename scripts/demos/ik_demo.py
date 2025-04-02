@@ -18,7 +18,27 @@ from baxter_core_msgs.srv import (
 )
 
 
-def ik_get(limb, pose):
+def ik_get(limb):
+    rospy.init_node("ik_demo")
+    hdr = Header(stamp=rospy.Time.now(), frame_id='base')
+    pose = {
+        'left': PoseStamped(
+            header=hdr,
+            pose=Pose(
+                position=Point(
+                    x=0.657579481614,
+                    y=0.851981417433,
+                    z=0.0388352386502,
+                ),
+                orientation=Quaternion(
+                    x=-0.366894936773,
+                    y=0.885980397775,
+                    z=0.108155782462,
+                    w=0.262162481772,
+                ),
+            ),
+        )
+    }
     ns = "ExternalTools/" + limb + "/PositionKinematicsNode/IKService"
     iksvc = rospy.ServiceProxy(ns, SolvePositionIK)
     ikreq = SolvePositionIKRequest()
@@ -41,28 +61,9 @@ def ik_get(limb, pose):
         return 0
 
 def main():
-    rospy.init_node("ik_demo")
-    hdr = Header(stamp=rospy.Time.now(), frame_id='base')
-    pose = {
-        'left': PoseStamped(
-            header=hdr,
-            pose=Pose(
-                position=Point(
-                    x=0.657579481614,
-                    y=0.851981417433,
-                    z=0.0388352386502,
-                ),
-                orientation=Quaternion(
-                    x=-0.366894936773,
-                    y=0.885980397775,
-                    z=0.108155782462,
-                    w=0.262162481772,
-                ),
-            ),
-        )
-    }
+    
     print('IK Joint Solution: ')
-    print(ik_get('left', pose))
+    print(ik_get('left'))
 
 if __name__ == '__main__':
     main()
