@@ -2,7 +2,6 @@
 # license removed for brevity
 import struct
 import rospy
-
 from geometry_msgs.msg import (
     PoseStamped,
     Pose,
@@ -11,6 +10,8 @@ from geometry_msgs.msg import (
 )
 
 from std_msgs.msg import Header
+
+import baxter_interface
 
 from baxter_core_msgs.srv import (
     SolvePositionIK,
@@ -42,42 +43,25 @@ def ik_get(limb, pose):
 
 def main():
     print("Initializing Node.")
+    limb_left = baxter_interface.Limb('left')
     rospy.init_node("ik_demo")
     hdr = Header(stamp=rospy.Time.now(), frame_id='base')
+
+    quat_tf = [1, 0, 0, 0]
     pose1 =  PoseStamped(
-        header = hdr,
-        pose = Pose(
-            position=Point(
-                x =  0.8445083708840,
-                y = -0.2650950949815,
-                z = -0.1626333282948,
-            ),
-            orientation=Quaternion(
-                x=1,
-                y=0,
-                z=0,
-                w=0,
-            ),
-        ),
-    )
-    pose2 = PoseStamped(
         header = hdr,
         pose = Pose(
             position=Point(
                 x =  0.8,
                 y = -0.3,
-                z =  0.5,
+                z =  0.3,
             ),
-            orientation=Quaternion(
-                x =  0.22094238269,
-                y =  0.22094238269,
-                z = -0.22094238269,
-                w = -0.923879532511,
-            ),
+            orientation = Quaternion(quat_tf[0], quat_tf[1], quat_tf[2], quat_tf[3]),
         ),
     )
     print('IK Joint Solution: ')
     print(ik_get('left', pose1))
-
+    if(pose1 != 0 and pose1 != 1):
+        limb_left.move_to_joint_positions(pose1)
 if __name__ == '__main__':
     main()
