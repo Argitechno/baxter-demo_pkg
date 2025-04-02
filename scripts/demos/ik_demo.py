@@ -41,6 +41,7 @@ def ik_get(limb, pose):
         return 0
 
 def main():
+    print("Initializing Node.")
     rospy.init_node("ik_demo")
     hdr = Header(stamp=rospy.Time.now(), frame_id='base')
     pose =  PoseStamped(
