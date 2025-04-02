@@ -47,14 +47,14 @@ def main():
     limb_left = baxter_interface.Limb('left')
     hdr = Header(stamp=rospy.Time.now(), frame_id='base')
 
-    quat_tf = [1, 0, 0, 0]
+    quat_tf = [0.6614378278, 0.75, 0, 0]
     pose1 =  PoseStamped(
         header = hdr,
         pose = Pose(
             position=Point(
-                x =  0.8,
-                y = -0.3,
-                z =  0.3,
+                x =  0.137,
+                y =  1.025,
+                z =  0.24,
             ),
             orientation = Quaternion(quat_tf[0], quat_tf[1], quat_tf[2], quat_tf[3]),
         )
