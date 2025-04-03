@@ -2,6 +2,7 @@
 # license removed for brevity
 import struct
 import rospy
+import numpy as np
 from geometry_msgs.msg import (
     PoseStamped,
     Pose,
@@ -55,48 +56,38 @@ def main():
     print("Initializing Node.")
     rospy.init_node("ik_demo")
     limb_left = baxter_interface.Limb('left')
-
-    quat_tf = [0.6614378278, 0.75, 0, 0]
     pos = [0.500, 0.500, 0.25]
-    
-    pose = ik_get('left', get_pose(pos, quat_tf))
-    if(pose != 0 and pose != 1):
-        limb_left.move_to_joint_positions(pose)
 
-    pos[0] += 0.2
-
+    #The default rotation (0, 0, 0, 1) faces the wrist up.
+    quat_tf = [0, 0, 0, 1]
     pose = ik_get('left', get_pose(pos, quat_tf))
     if(pose != 0 and pose != 1):
         limb_left.move_to_joint_positions(pose)
     
-    pos[1] += 0.2
+    #This quaternion defines a rotation around the X axis and the Y axis.
+    #This is a full rotation as w is 0 (w = 2*arccos(theta))
+    #And so: the resulting is that since we are rotating 180 around an axis that has no Z (vertical) component, is that the arm will face down.
+    #However: the rotation of the wrist: since when in base position, the wrist is unrotated.
+    #Now, the left side of the gripper would be in the positive x (away from the robot) direction, and the right side would be in negative y.
+    #So rotations affect the gripper orientation as well, not just the arm.
+    #And the axis isn't exactly 135 degrees from positive x, so the grippers will actually be (likely unoticably) rotated a bit counter clockwise if looking down, 
+    #rather than perfectly 90 degrees
+    quat_tf = [0.6614378278, 0.75, 0, 0]
+    pos = np.subtract(pos, [0.2, 0.2, 0.2])
 
-    pose = ik_get('left', get_pose(pos, quat_tf))
-    if(pose != 0 and pose != 1):
-        limb_left.move_to_joint_positions(pose)
-
-    pos[0] -= 0.2
-
-    pose = ik_get('left', get_pose(pos, quat_tf))
-    if(pose != 0 and pose != 1):
-        limb_left.move_to_joint_positions(pose)
-
-    pos[1] -= 0.2
-
-    pose = ik_get('left', get_pose(pos, quat_tf))
-    if(pose != 0 and pose != 1):
-        limb_left.move_to_joint_positions(pose)
+    #Visit all 8 corners of a small cube centered around the current point
+    for i in range(-1, 2, 2):
+        for j in range(-1, 2, 2):
+            for k in range(-1, 2, 2):
+                pose = ik_get('left', get_pose(np.add(pos, [ 0.2*i, 0.2*j, 0.2*k ]), quat_tf))
+                if(pose != 0 and pose != 1):
+                    limb_left.move_to_joint_positions(pose)
     
-    pos[2] -= 0.2
+    #Return to original point, but change the orientation back to face down and normal gripper orientation, upside down
+    quat_tf = [1, 0, 0, 0]
+    pose = ik_get('left', get_pose(pos, quat_tf))
+    if(pose != 0 and pose != 1):
+        limb_left.move_to_joint_positions(pose)
 
-    pose = ik_get('left', get_pose(pos, quat_tf))
-    if(pose != 0 and pose != 1):
-        limb_left.move_to_joint_positions(pose)
-        
-    quat_tf = [0.6614378278, 0, 0.75, 0]
-    pose = ik_get('left', get_pose(pos, quat_tf))
-    if(pose != 0 and pose != 1):
-        limb_left.move_to_joint_positions(pose)
-    
 if __name__ == '__main__':
     main()
