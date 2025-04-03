@@ -1,8 +1,23 @@
 #!/usr/bin/env python
 # license removed for brevity
+import struct
 import rospy
 import baxter_interface
 import numpy as np
+from geometry_msgs.msg import (
+    PoseStamped,
+    Pose,
+    Point,
+    Quaternion,
+)
+
+from std_msgs.msg import Header
+
+from baxter_core_msgs.srv import (
+    SolvePositionIK,
+    SolvePositionIKRequest,
+)
+
 #Goal:
     #1 Display normal face & neutral position/praying mantis/untucked.
     #2 Move head to face window. (right)
