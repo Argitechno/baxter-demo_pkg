@@ -20,7 +20,7 @@ def main():
 
     #1
     #2
-    head.set_pan(-np.PI/2, speed=0.05)
+    head.set_pan(-np.pi/2, speed=0.05)
     #3
     #4
     #5
