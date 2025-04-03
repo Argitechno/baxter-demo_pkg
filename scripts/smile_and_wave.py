@@ -69,10 +69,8 @@ def main():
     limb_left = baxter_interface.Limb('left')
     limb_right = baxter_interface.Limb('right')
 
-    left_hip   = ik_get('left',  get_pose( [  0.1544,  0.4025,  0.0432 ], np.sqrt( [  0.4800,  0.0300, -0.4375,  0.0525 ] ) ) )
-    right_wave = ik_get('right', get_pose( [ -0.2365, -0.9438,  1.0238 ], np.sqrt( [  0.0000,  0.0000,  0.5000,  0.5000 ] ) ) )
-    print("Left Hip: ",  get_pose( [  0.1544,  0.4025,  0.0432 ], np.sqrt( [  0.4800,  0.0300, -0.4375,  0.0525 ] ) ) )
-    print("Right Hip: ", get_pose( [ -0.2365, -0.9438,  1.0238 ], np.sqrt( [  0.0000,  0.0000,  0.5000,  0.5000 ] ) ) )
+    left_hip   = ik_get('left',  get_pose( [  0.1544,  0.4025,  0.0432 ], np.sqrt( [ 0.4800, 0.0300, 0.4375, 0.0525 ] ) * [  1,  1, -1,  1] ) )
+    right_wave = ik_get('right', get_pose( [ -0.2365, -0.9438,  1.0238 ], np.sqrt( [ 0.0000, 0.0000, 0.5000, 0.5000 ] ) * [  1,  1,  1,  1] ) )
     if(left_hip == 0 or left_hip == 1 or right_wave == 0 or right_wave == 1): 
         return
     #1
