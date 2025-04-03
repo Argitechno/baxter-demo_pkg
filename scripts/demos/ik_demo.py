@@ -75,7 +75,7 @@ def main():
     quat_tf = [0.6614378278, 0.75, 0, 0]
 
     #Visit all 8 corners of a small cube centered around the current point
-    s=0.1
+    s=0.07
     for i in range(-1, 2, 2):
         for j in range(-1, 2, 2):
             for k in range(-1, 2, 2):
