@@ -56,7 +56,7 @@ def main():
     print("Initializing Node.")
     rospy.init_node("ik_demo")
     limb_left = baxter_interface.Limb('left')
-    pos = [0.500, 0.500, 0.25]
+    pos = [0.650, 0.500, 0.25]
 
     #The default rotation (0, 0, 0, 1) faces the wrist up.
     quat_tf = [0, 0, 0, 1]
