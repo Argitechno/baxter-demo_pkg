@@ -69,9 +69,14 @@ def main():
     limb_left = baxter_interface.Limb('left')
     limb_right = baxter_interface.Limb('right')
 
-    left_hip   = ik_get('left',  get_pose( [  0.2238,  0.4261,  0.0395 ], np.sqrt( [ 0.5246, 0.0234, 0.4006, 0.0514 ] ) * [  1,  1, -1,  1] ) )
-    right_wave = ik_get('right', get_pose( [ -0.2365, -0.9438,  1.0238 ], np.sqrt( [ 0.0000, 0.0000, 0.5000, 0.5000 ] ) * [  1,  1,  1,  1] ) )
-    if(left_hip == 0 or left_hip == 1 or right_wave == 0 or right_wave == 1): 
+    left_hip    = ik_get('left',  get_pose( [  0.2238,  0.4261,  0.0395 ], np.sqrt( [ 0.5246, 0.0234, 0.4006, 0.0514 ] ) * [  1,  1, -1,  1] ) )
+    right_wave0 = ik_get('right', get_pose( [ -0.2365, -0.9438,  1.0238 ], np.sqrt( [ 0.0000, 0.0000, 0.5000, 0.5000 ] ) * [  1,  1,  1,  1] ) )
+    right_wave1 = ik_get('right', get_pose( [ -0.0400, -1.0970,  0.8447 ], np.sqrt( [ 0.1661, 0.0497, 0.1104, 0.6738 ] ) * [  1,  1,  1,  1] ) )
+    if(
+        left_hip    == 0 or left_hip    == 1 or 
+        right_wave0 == 0 or right_wave0 == 1 or
+        right_wave1 == 0 or right_wave1 == 1 
+    ): 
         return
     
     #1
@@ -87,8 +92,10 @@ def main():
     #4
     limb_left.move_to_joint_positions(left_hip)
     #5
-    limb_right.move_to_joint_positions(right_wave)
+    limb_right.move_to_joint_positions(right_wave0)
     #6
+    limb_right.move_to_joint_positions(right_wave1)
+    limb_right.move_to_joint_positions(right_wave0)
     #7
     head.command_nod()
     #8
