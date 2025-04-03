@@ -59,6 +59,8 @@ catkin_install_python(PROGRAMS
 	scripts/demos/acc_demo.py
 	scripts/demos/screen_demo.py
 	scripts/demos/ik_demo.py
+	
+	scripts/smile_and_wave.py
 
   	DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
