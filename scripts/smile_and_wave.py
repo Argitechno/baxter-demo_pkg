@@ -4,7 +4,7 @@ import rospy
 import baxter_interface
 import numpy as np
 #Goal:
-    #1 Display normal face.
+    #1 Display normal face & neutral position/praying mantis/untucked.
     #2 Move head to face window. (right)
     #3 Display smile / progress to smile while next step?
     #4 Move right arm to "hip"
@@ -20,7 +20,7 @@ def main():
 
     #1
     #2
-    head.set_pan(-np.pi*1.2/2, speed=0.05)
+    head.set_pan(-np.pi/2.4, speed=0.05)
     #3
     #4
     #5
