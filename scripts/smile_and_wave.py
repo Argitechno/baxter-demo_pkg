@@ -70,12 +70,17 @@ def main():
     limb_right = baxter_interface.Limb('right')
 
     left_hip   = ik_get('left',  get_pose( [  0.2238,  0.4261,  0.0395 ], np.sqrt( [ 0.5246, 0.0234, 0.4006, 0.0514 ] ) * [  1,  1, -1,  1] ) )
-    print(                       get_pose( [  0.2238,  0.4261,  0.0395 ], np.sqrt( [ 0.5246, 0.0234, 0.4006, 0.0514 ] ) * [  1,  1, -1,  1] ) )
-    
     right_wave = ik_get('right', get_pose( [ -0.2365, -0.9438,  1.0238 ], np.sqrt( [ 0.0000, 0.0000, 0.5000, 0.5000 ] ) * [  1,  1,  1,  1] ) )
     if(left_hip == 0 or left_hip == 1 or right_wave == 0 or right_wave == 1): 
         return
+    
     #1
+    head.set_pan(0, speed=0.5)
+    left_pos =  { 'left_e0'  :  -2*np.pi/5, 'left_e1'  :  3*np.pi/5, 'left_s0'  : 0, 'left_s1'  :  -3*np.pi/10, 'left_w0'  :   np.pi/5, 'left_w1'  :  3*np.pi/10, 'left_w2'  :  -np.pi/5}
+    right_pos = { 'right_e0' :   2*np.pi/5, 'right_e1' :  3*np.pi/5, 'right_s0' : 0, 'right_s1' :  -3*np.pi/10, 'right_w0' :  -np.pi/5, 'right_w1' :  3*np.pi/10, 'right_w2' :   np.pi/5}
+    limb_left.move_to_joint_positions(left_pos)
+    limb_right.move_to_joint_positions(right_pos)
+    rospy.sleep(3)
     #2
     head.set_pan(-np.pi/2.4, speed=0.05)
     #3
