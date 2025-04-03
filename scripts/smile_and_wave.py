@@ -28,6 +28,7 @@ def main():
     #7
     head.command_nod()
     #8
+    rospy.sleep(3)
     head.set_pan(0, speed=0.5)
 
 if __name__ == '__main__':
