@@ -56,7 +56,7 @@ def main():
     print("Initializing Node.")
     rospy.init_node("ik_demo")
     limb_left = baxter_interface.Limb('left')
-    pos = [0.650, 0.500, 0.25]
+    pos = [0.650, 0.700, 0.25]
 
     #The default rotation (0, 0, 0, 1) faces the wrist up.
     quat_tf = [0, 0, 0, 1]
@@ -75,10 +75,11 @@ def main():
     quat_tf = [0.6614378278, 0.75, 0, 0]
 
     #Visit all 8 corners of a small cube centered around the current point
+    s=0.1
     for i in range(-1, 2, 2):
         for j in range(-1, 2, 2):
             for k in range(-1, 2, 2):
-                pose = ik_get('left', get_pose(np.add(pos, [ 0.2*i, 0.2*j, 0.2*k ]), quat_tf))
+                pose = ik_get('left', get_pose(np.add(pos, [ s*i, s*j, s*k ]), quat_tf))
                 if(pose != 0 and pose != 1):
                     limb_left.move_to_joint_positions(pose)
     
