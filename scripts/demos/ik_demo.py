@@ -83,7 +83,7 @@ def main():
                 if(pose != 0 and pose != 1):
                     limb_left.move_to_joint_positions(pose)
     
-    #Return to original point, but change the orientation back to face down and normal gripper orientation, upside down
+    #Go to center of cube, but upside down, around the X (forward) axis.
     quat_tf = [1, 0, 0, 0]
     pose = ik_get('left', get_pose(pos, quat_tf))
     if(pose != 0 and pose != 1):
