@@ -73,7 +73,6 @@ def main():
     #And the axis isn't exactly 135 degrees from positive x, so the grippers will actually be (likely unoticably) rotated a bit counter clockwise if looking down, 
     #rather than perfectly 90 degrees
     quat_tf = [0.6614378278, 0.75, 0, 0]
-    pos = np.subtract(pos, [0.2, 0.2, 0.2])
 
     #Visit all 8 corners of a small cube centered around the current point
     for i in range(-1, 2, 2):
