@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # license removed for brevity
-import baxter_interface.cfg
 import rospy
 import baxter_interface
-
+from baxter_interface import CHECK_VERSION
 
 def gripper_demo():
     """Access the gripper and move it, and tell us the pose of the endpoint (where the gripper is)"""
