@@ -6,6 +6,7 @@ from baxter_interface import CHECK_VERSION
 
 def gripper_demo():
     """Access the gripper and move it, and tell us the pose of the endpoint (where the gripper is)"""
+    
     gripper = baxter_interface.Gripper('right')
     right_limb = baxter_interface.Limb('right')
     print("Gripper Demo!")
