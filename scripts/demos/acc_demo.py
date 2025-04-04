@@ -7,7 +7,7 @@ from baxter_interface import CHECK_VERSION
 import demo_pkg.accelerometer_io as AccelerometerIO
 
 def acc_monitor():
-    """Monitor the accelerometer for 5 seconds."""
+    """Monitor the accelerometer for 5 seconds, twice a second."""
 
     print("Initializing Acc Object")
     rightAcc = AccelerometerIO.AccelerometerIO('right_accelerometer')
