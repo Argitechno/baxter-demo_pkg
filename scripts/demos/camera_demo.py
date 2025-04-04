@@ -50,28 +50,8 @@ def list_cameras():
         except socket.error:
             raise ROSTopicIOException("Cannot communicate with master.")
     return open_cams
-                
-def link_camera():
-    """Start a link to the head camera, closing the left hand camera if needed, and displaying the image on the running machine."""
 
-    print("Getting camera list")
-    cameras = list_cameras()
 
-    if(not cameras.get('head_camera', False) and cameras.get('left_hand_camera', False) and cameras.get('right_hand_camera', False)):
-        print("Closing left hand camera")
-        close_cam('left_hand_camera')
-    print("Opening head camera")
-    open_cam('head_camera', (640, 400))
-
-    print("Opening bridge")
-    bridge = cv_bridge.CvBridge()
-    def image_callback(ros_img):
-        cv_image = bridge.imgmsg_to_cv2(ros_img, desired_encoding = "passthrough")
-        cv2.imshow('Image', cv_image)
-        cv2.waitKey(1)
-
-    print("Opening subscriber to image.")
-    rospy.Subscriber('/cameras/head_camera/image', Image, image_callback)
 
 def main():
     """Demonstrate access to camera output."""
@@ -95,7 +75,39 @@ def main():
             rs.disable()
     
     rospy.on_shutdown(clean_shutdown)
+
+    cv_image = 0
+    def link_camera():
+        """Start a link to the head camera, closing the left hand camera if needed, and displaying the image on the running machine."""
+        nonlocal cv_image
+
+        print("Getting camera list")
+        cameras = list_cameras()
+
+        if(not cameras.get('head_camera', False) and cameras.get('left_hand_camera', False) and cameras.get('right_hand_camera', False)):
+            print("Closing left hand camera")
+            close_cam('left_hand_camera')
+        print("Opening head camera")
+        open_cam('head_camera', (640, 400))
+
+        print("Opening bridge")
+        bridge = cv_bridge.CvBridge()
+
+        
+        def image_callback(ros_img):
+            nonlocal cv_image 
+            cv_image = bridge.imgmsg_to_cv2(ros_img, desired_encoding = "passthrough")
+
+        print("Opening subscriber to image.")
+        rospy.Subscriber('/cameras/head_camera/image', Image, image_callback)
     link_camera()
+
+    rate = rospy.rate(60)
+    while not rospy.is_shutdown():
+        if(cv_image != 0):
+            cv2.imshow('Image', cv_image)
+            cv2.waitKey(1)
+        rate.sleep()
     rospy.spin()
   
 if __name__ == '__main__':
