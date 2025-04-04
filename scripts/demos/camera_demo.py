@@ -55,7 +55,7 @@ class CameraLink():
     def __init__(self, camera_open, res, camera_close):
         """Establishes a new camera link to camera_open, closing camera_close if both other cameras are open."""
         self._cv_image = None
-        print("Getting camera list")
+        print("Getting camera list.")
         cameras = list_cameras()
         camera_count = 0
         for key, value in cameras.items():
@@ -93,6 +93,7 @@ def head_stream():
 
     head_cam_link = CameraLink('head_camera', (640, 400), 'left_hand_camera')
     rate = rospy.Rate(60)
+    print("Hit ^C in terminal or q in window to exit stream.")
     while not rospy.is_shutdown():
         display_link(head_cam_link)
         if cv2.waitKey(1) & 0xFF == ord('q'):
