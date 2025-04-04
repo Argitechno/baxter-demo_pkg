@@ -54,7 +54,7 @@ def list_cameras():
 class CameraLink():
     def __init__(self, camera_open, res, camera_close):
         """Establishes a new camera link to camera_open, closing camera_close if both other cameras are open."""
-        self.cv_image = 0
+        self._cv_image = None
         print("Getting camera list")
         cameras = list_cameras()
         camera_count = 0
@@ -76,16 +76,16 @@ class CameraLink():
         rospy.Subscriber('/cameras/head_camera/image', Image, self._image_callback)
         
     def _image_callback(self, ros_img):
-        self.cv_image = self._bridge.imgmsg_to_cv2(ros_img, desired_encoding = "passthrough")  
+        self._cv_image = self._bridge.imgmsg_to_cv2(ros_img, desired_encoding = "passthrough")  
 
     def get_image(self):
-        return self.cv_image
+        return self._cv_image
 
 
 def display_link(camera_link):
         """Display the image from camera_link on the running machine."""
         cv_image = camera_link.get_image()
-        if(cv_image != 0):
+        if(cv_image is not None):
             cv2.imshow('Image', cv_image)
 
 def head_stream():
@@ -108,9 +108,9 @@ def main():
                                         description = main.__doc__)
     parser.parse_args(rospy.myargv()[1:])
 
-    print("Initializing Node")
+    print("Initializing Node...")
     rospy.init_node('camera_demo', anonymous=True)
-    print("Getting robot state... ")
+    print("Getting robot state...")
     rs = baxter_interface.RobotEnable(CHECK_VERSION)
     init_state = rs.state().enabled
     
