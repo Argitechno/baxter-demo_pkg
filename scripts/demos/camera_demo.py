@@ -92,7 +92,7 @@ def head_stream():
     """Continously stream the head camera to the host screen until the node is shutdown."""
 
     head_cam_link = CameraLink('head_camera', (640, 400), 'left_hand_camera')
-    rate = rospy.rate(60)
+    rate = rospy.Rate(60)
     while not rospy.is_shutdown():
         display_link(head_cam_link)
         if cv2.waitKey(1) & 0xFF == ord('q'):
