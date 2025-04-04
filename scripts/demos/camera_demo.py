@@ -69,7 +69,7 @@ class CameraLink():
         print("Opening %s." % (camera_open))
         open_cam(camera_open, res)
 
-        print("Opening bridge")
+        print("Opening bridge.")
         self._bridge = cv_bridge.CvBridge()
 
         print("Opening subscriber to image.")
