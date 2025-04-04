@@ -51,6 +51,53 @@ def list_cameras():
             raise ROSTopicIOException("Cannot communicate with master.")
     return open_cams
 
+class CameraLink():
+    def __init__(self, camera_open, res, camera_close):
+        """Establishes a new camera link to camera_open, closing camera_close if both other cameras are open."""
+        self.cv_image = 0
+        print("Getting camera list")
+        cameras = list_cameras()
+        camera_count = 0
+        for key, value in cameras.items():
+            if value:
+                camera_count += 1
+        
+        if(not cameras.get(camera_open, False) and  camera_count > 1):
+            print("Closing %s." % (camera_close))
+            close_cam(camera_close)
+
+        print("Opening %s." % (camera_open))
+        open_cam(camera_open, res)
+
+        print("Opening bridge")
+        _bridge = cv_bridge.CvBridge()
+
+        print("Opening subscriber to image.")
+        rospy.Subscriber('/cameras/head_camera/image', Image, self._image_callback)
+        
+    def _image_callback(self, ros_img):
+        self.cv_image = self._bridge.imgmsg_to_cv2(ros_img, desired_encoding = "passthrough")  
+
+    def get_image(self):
+        return self.cv_image
+
+
+def display_link(camera_link):
+        """Display the image from camera_link on the running machine."""
+        cv_image = camera_link.get_image()
+        if(cv_image != 0):
+            cv2.imshow('Image', cv_image)
+
+def head_stream():
+    """Continously stream the head camera to the host screen until the node is shutdown."""
+
+    head_cam_link = CameraLink('head_camera', (640, 400), 'left_hand_camera')
+    rate = rospy.rate(60)
+    while not rospy.is_shutdown():
+        display_link(head_cam_link)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+          break
+        rate.sleep()
 
 
 def main():
@@ -66,32 +113,7 @@ def main():
     print("Getting robot state... ")
     rs = baxter_interface.RobotEnable(CHECK_VERSION)
     init_state = rs.state().enabled
-
-    cv_image = 0
-    def link_camera():
-        """Start a link to the head camera, closing the left hand camera if needed, and displaying the image on the running machine."""
-        nonlocal cv_image
-
-        print("Getting camera list")
-        cameras = list_cameras()
-
-        if(not cameras.get('head_camera', False) and cameras.get('left_hand_camera', False) and cameras.get('right_hand_camera', False)):
-            print("Closing left hand camera")
-            close_cam('left_hand_camera')
-        print("Opening head camera")
-        open_cam('head_camera', (640, 400))
-
-        print("Opening bridge")
-        bridge = cv_bridge.CvBridge()
-
-        
-        def image_callback(ros_img):
-            nonlocal cv_image 
-            cv_image = bridge.imgmsg_to_cv2(ros_img, desired_encoding = "passthrough")
-
-        print("Opening subscriber to image.")
-        rospy.Subscriber('/cameras/head_camera/image', Image, image_callback)
-
+    
     def clean_shutdown():
         print("\nExiting example...")
         cv2.destroyAllWindows()
@@ -100,15 +122,7 @@ def main():
             rs.disable()
     
     rospy.on_shutdown(clean_shutdown)
-    link_camera()
-
-    rate = rospy.rate(60)
-    while not rospy.is_shutdown():
-        if(cv_image != 0):
-            cv2.imshow('Image', cv_image)
-            cv2.waitKey(1)
-        rate.sleep()
-    rospy.spin()
+    head_stream()
   
 if __name__ == '__main__':
     main()
