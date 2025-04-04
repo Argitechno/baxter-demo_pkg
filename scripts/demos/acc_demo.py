@@ -4,7 +4,7 @@ import argparse
 import rospy
 import baxter_interface
 from baxter_interface import CHECK_VERSION
-import demo_pkg.accelerometer_io as AccelerometerIO
+import demo_pkg.src.demo_pkg.accelerometer_io as AccelerometerIO
 
 def acc_monitor():
     """Monitor the accelerometer for 5 seconds, twice a second."""
