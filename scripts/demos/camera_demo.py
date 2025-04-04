@@ -67,15 +67,6 @@ def main():
     rs = baxter_interface.RobotEnable(CHECK_VERSION)
     init_state = rs.state().enabled
 
-    def clean_shutdown():
-        print("\nExiting example...")
-        cv2.destroyAllWindows()
-        if not init_state:
-            print("Disabling robot...")
-            rs.disable()
-    
-    rospy.on_shutdown(clean_shutdown)
-
     cv_image = 0
     def link_camera():
         """Start a link to the head camera, closing the left hand camera if needed, and displaying the image on the running machine."""
@@ -100,6 +91,15 @@ def main():
 
         print("Opening subscriber to image.")
         rospy.Subscriber('/cameras/head_camera/image', Image, image_callback)
+
+    def clean_shutdown():
+        print("\nExiting example...")
+        cv2.destroyAllWindows()
+        if not init_state:
+            print("Disabling robot...")
+            rs.disable()
+    
+    rospy.on_shutdown(clean_shutdown)
     link_camera()
 
     rate = rospy.rate(60)
