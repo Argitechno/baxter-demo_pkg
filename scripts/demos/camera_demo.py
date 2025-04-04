@@ -4,7 +4,7 @@ import argparse
 import rospy
 import baxter_interface
 from baxter_interface import CHECK_VERSION
-from baxter_interface.src.baxter_interface.camera import CameraController
+from baxter_interface.camera import CameraController
 
 import rosgraph
 import socket
