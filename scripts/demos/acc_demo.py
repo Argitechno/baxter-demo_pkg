@@ -21,7 +21,7 @@ def acc_monitor():
         rate.sleep()
 
 def main():
-    """Demonstrate that the accellerometers are accessible."""
+    """Demonstrate access to accelerometer output."""
 
     arg_fmt = argparse.RawDescriptionHelpFormatter
     parser = argparse.ArgumentParser(   formatter_class = arg_fmt,
