@@ -70,7 +70,7 @@ class CameraLink():
         open_cam(camera_open, res)
 
         print("Opening bridge")
-        _bridge = cv_bridge.CvBridge()
+        self._bridge = cv_bridge.CvBridge()
 
         print("Opening subscriber to image.")
         rospy.Subscriber('/cameras/head_camera/image', Image, self._image_callback)
