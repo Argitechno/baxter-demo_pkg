@@ -61,6 +61,7 @@ catkin_install_python(PROGRAMS
 	scripts/demos/ik_demo.py
 	
 	scripts/smile_and_wave.py
+	scripts/get_joint_pos.py
 
   	DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
