@@ -7,21 +7,24 @@ import numpy as np
 import cv2
 import cv_bridge
 import os.path
+
 from geometry_msgs.msg import (
     PoseStamped,
     Pose,
     Point,
     Quaternion,
 )
-
 from std_msgs.msg import Header
 from sensor_msgs.msg import Image
-import baxter_interface.digital_io as DIO
 
 from baxter_core_msgs.srv import (
     SolvePositionIK,
     SolvePositionIKRequest,
 )
+
+import baxter_interface.digital_io as DIO
+
+
 
 #Goal:
     #1 Display normal face & neutral position/praying mantis/untucked.
@@ -96,8 +99,17 @@ def main():
 
     #0 Calculate positions.
     print("Getting IK Positions...")
-    left_hip    = ik_get('left',  get_pose( [  0.2238,  0.4261,  0.0395 ], np.sqrt( [ 0.5246, 0.0234, 0.4006, 0.0514 ] ) * [  1,  1, -1,  1] ) )
-    right_wave0 = ik_get('right', get_pose( [ -0.2365, -0.9438,  1.0238 ], np.sqrt( [ 0.0000, 0.0000, 0.5000, 0.5000 ] ) * [  1,  1,  1,  1] ) )
+    
+    left_hip    = ik_get('left',  get_pose( 
+        [  0.2238,  0.4261,  0.0395 ],
+        np.sqrt( [ 0.5246, 0.0234, 0.4006, 0.0514 ] ) * [  1,  1, -1,  1] 
+    ))
+    
+    right_wave0 = ik_get('right', get_pose(
+        [ -0.2365, -0.9438,  1.0238 ],
+        np.sqrt( [ 0.0000, 0.0000, 0.5000, 0.5000 ] ) * [  1,  1,  1,  1]
+    ))
+    
     wave_move = {'right_s0': 0.1, 'right_s1': 0.2, 'right_w0': -0.7, 'right_w1': 0.2, 'right_w2': 0, 'right_e0': -0.3, 'right_e1': 0.4}
     right_wave1 = {k: right_wave0.get(k, 0) + wave_move.get(k, 0) for k in right_wave0.keys()}
     if(
@@ -175,33 +187,34 @@ def main():
     #8 Nod & Flash Lights
     print("Nod & Flash Lights...")
     head.command_nod()
+    
+    def switchState(digitalComponent):
+        digitalComponent.state = not digitalComponent.state
+        
     leftLightInner = DIO.DigitalIO('left_inner_light')
     leftLightOuter = DIO.DigitalIO('left_outer_light')
     rightLightInner = DIO.DigitalIO('right_inner_light')
-    righLightOuter = DIO.DigitalIO('right_outer_light')
+    rightLightOuter = DIO.DigitalIO('right_outer_light')
     torsoLeftLightInner = DIO.DigitalIO('torso_left_inner_light')
     torsoLeftLightOuter = DIO.DigitalIO('torso_left_outer_light')
     torsoRightLightInner = DIO.DigitalIO('torso_right_inner_light')
     torsoRightLightOuter = DIO.DigitalIO('torso_right_outer_light')
-
-    def switchState(digitalComponent):
-	    digitalComponent.state = not digitalComponent.state
-
+    
     def switchLights():
-	    switchState(leftLightInner)
-	    switchState(leftLightOuter)
-	    switchState(rightLightInner)
-	    switchState(righLightOuter)
-	    switchState(torsoLeftLightInner)
-	    switchState(torsoLeftLightOuter)
-	    switchState(torsoRightLightInner)
-	    switchState(torsoRightLightOuter)
+        switchState(leftLightInner)
+        switchState(leftLightOuter)
+        switchState(rightLightInner)
+        switchState(rightLightOuter)
+        switchState(torsoLeftLightInner)
+        switchState(torsoLeftLightOuter)
+        switchState(torsoRightLightInner)
+        switchState(torsoRightLightOuter)
 	
 
     for i in range(0, 10):
-		switchLights()
-		print("Switched the lights!", i)
-		rospy.sleep(0.2)
+        switchLights()
+        print("Switched the lights!", i)
+        rospy.sleep(0.2)
 
     #9 Back to neutral position/praying mantis/untucked
     img = cv2.imread(neutral_baxter)
